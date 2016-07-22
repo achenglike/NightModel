@@ -12,3 +12,6 @@ final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linear_layout
                 linearLayout.addView(view);
             }
         });
+
+
+## @style just support TextView (android:textColor or android:textSize)
