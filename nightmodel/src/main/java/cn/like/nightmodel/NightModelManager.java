@@ -31,6 +31,8 @@ import cn.like.nightmodel.utils.PersistenceUtils;
  */
 public class NightModelManager {
 
+    private boolean modelChanged = false;
+
     private SparseArrayCompat<List<AttrView>> attrViewMaps = new SparseArrayCompat<>();
 
     private static final Map<String, Constructor<? extends View>> sConstructorMap
@@ -117,6 +119,7 @@ public class NightModelManager {
     }
 
     private void applyNewModel() {
+        modelChanged = true;
         int count = attrViewMaps.size();
         for (int i=0; i<count; i++) {
             List<AttrView> attrViews = attrViewMaps.valueAt(i);
@@ -150,14 +153,18 @@ public class NightModelManager {
             if (attrs.isEmpty())
                 return result;
 
-            result = createViewFromTag((Context)args[2], (String)args[1], (AttributeSet)args[3]);
             if (result == null) {
-                return result;
+                result = createViewFromTag((Context)args[2], (String)args[1], (AttributeSet)args[3]);
             }
 
             if (attrs.size() > 0) {
                 AttrView attrView = new AttrView((View) result, attrs);
                 putAttrView(attrView, activity.hashCode());
+
+                // if model changed once, should apply once, otherwise, the View will use old style
+                if (result != null && modelChanged) {
+                    attrView.apply();
+                }
             }
 
             return result;
