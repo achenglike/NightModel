@@ -5,9 +5,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,11 +66,6 @@ public enum  AttrType {
     SRC("src") {
         @Override
         public void apply(View view, String resName) {
-            if (view instanceof FloatingActionButton) {
-                Drawable drawable = getDrawable(view.getContext(), resName);
-                if (drawable == null) return;
-                ((FloatingActionButton) view).setImageDrawable(drawable);
-            }
             if (view instanceof ImageView) {
                 Drawable drawable = getDrawable(view.getContext(), resName);
                 if (drawable == null) return;

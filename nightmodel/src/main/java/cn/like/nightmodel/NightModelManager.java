@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -82,6 +83,7 @@ public class NightModelManager {
     }
 
     public void applyNightModel(AppCompatActivity activity){
+        invokeResources(activity);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         activity.getDelegate().applyDayNight();
         applyNewModel();
@@ -89,10 +91,29 @@ public class NightModelManager {
     }
 
     public void applyDayModel(AppCompatActivity activity) {
+        invokeResources(activity);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         activity.getDelegate().applyDayNight();
         applyNewModel();
         PersistenceUtils.setNightModel(activity.getApplicationContext(), false);
+    }
+
+    /**
+     * it's used for update StateListDrawable, otherwise StateListDrawable
+     * will not be updated.
+     *
+     * @param activity
+     */
+    private void invokeResources(AppCompatActivity activity) {
+        try {
+            Field resources = AppCompatActivity.class.getDeclaredField("mResources");
+            resources.setAccessible(true);
+            resources.set(activity, null);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     private void applyNewModel() {
@@ -133,10 +154,9 @@ public class NightModelManager {
             if (result == null) {
                 return result;
             }
-            List<Attr> nightModelAttrs = AttrUtils.getNightModelAttr(args, activity.getResources());
 
-            if (nightModelAttrs.size() > 0) {
-                AttrView attrView = new AttrView((View) result, nightModelAttrs);
+            if (attrs.size() > 0) {
+                AttrView attrView = new AttrView((View) result, attrs);
                 putAttrView(attrView, activity.hashCode());
             }
 

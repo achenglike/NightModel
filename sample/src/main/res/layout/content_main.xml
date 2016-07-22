@@ -33,4 +33,11 @@
         style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/drawble"
+        android:layout_below="@id/open"
+        android:text="newActivity"
+        android:background="@drawable/background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

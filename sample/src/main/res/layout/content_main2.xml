@@ -13,7 +13,14 @@
     tools:showIn="@layout/activity_main2">
     <TextView
         style="@style/TextStyle"
+        android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="	鹅鹅鹅，\n曲项向天歌。\n白毛浮绿水，\n红掌拨清波。"/>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_below="@id/text_view"
+        android:listSelector="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

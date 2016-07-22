@@ -2,13 +2,11 @@ package cn.like.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 import cn.like.nightmodel.NightModelManager;
@@ -46,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        NightModelManager.getInstance().attach(this);
+        NightModelManager.getInstance().detach(this);
         super.onDestroy();
     }
 }
