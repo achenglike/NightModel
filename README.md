@@ -44,15 +44,17 @@ follow Android official nigh model guidance
 	}
 	```
 3. call night/day method
+
 	```
 	private void changeNightModel() {
    	if (NightModelManager.getInstance().isCurrentNightModel(this)) {
-			NightModelManager.getInstance().applyDayModel(this);
-		} else {
-			NightModelManager.getInstance().applyNightModel(this);
-     }
+		NightModelManager.getInstance().applyDayModel(this);
+	} else {
+		NightModelManager.getInstance().applyNightModel(this);
+     	}
     }
 	```
+	
 	
 ## warn
 1. this lib used for resolving the problem that official night model can not refresh started Activities. So, only attach and detach in Activities that need refresh. It's a supplementary lib for official night model.
