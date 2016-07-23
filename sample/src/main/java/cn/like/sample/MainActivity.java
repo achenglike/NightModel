@@ -4,10 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.like.nightmodel.NightModelManager;
 
@@ -34,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Main2Activity.class));
             }
         });
+
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        listView.setAdapter(new SimpleAdapter());
     }
 
     private void changeNightModel() {
@@ -72,5 +83,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         NightModelManager.getInstance().detach(this);
         super.onDestroy();
+    }
+
+    private static class SimpleAdapter extends BaseAdapter {
+        private List<String> list = new ArrayList<>();
+
+        public SimpleAdapter() {
+            for (int i=0;i<50;i++) {
+                list.add("鹅鹅鹅");
+                list.add("曲项向天歌");
+                list.add("白毛浮绿水");
+                list.add("红掌拨清波");
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public String getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+            }
+            ((TextView)convertView).setText(getItem(position));
+            return convertView;
+        }
     }
 }

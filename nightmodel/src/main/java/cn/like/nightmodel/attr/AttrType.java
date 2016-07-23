@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -61,6 +62,19 @@ public enum  AttrType {
         @Override
         public String getResourceName(String attrValue, Resources resources) {
             return attrValue.substring(1);
+        }
+    },
+    PROGRESSDRAWABLE("progressDrawable") {
+        @Override
+        public void apply(View view, String resName) {
+            Drawable drawable = getDrawable(view.getContext(), resName);
+            if (drawable == null) return;
+            ((ProgressBar)view).setProgressDrawable(drawable);
+        }
+
+        @Override
+        public String getResourceName(String attrValue, Resources resources) {
+            return getIntResourceName(attrValue, resources);
         }
     },
     SRC("src") {
