@@ -54,15 +54,15 @@ follow Android official nigh model guidance
     }
 	```
 	
-	## warn
+## warn
 	1. this lib used for resolving the problem that official night model can not refresh started Activities. So, only attach and detach in Activities that need refresh. It's a supplementary lib for official night model.
 
-2. When create View dynamically int attached Activity with code, you should write like this:
+	2. When create View dynamically int attached Activity with code, you should write like this:
 	```
 	View view = LayoutInflater.from(MainActivity.this)
 		.inflate(R.layout.item_layout, parentView, false);
 	```
 	because the lib need cache this View, use LayoutInflater.from(MainActivity.this) will use the proxy LayoutInflaterFactory create this View and cache it
-3. style:@style/xx just support TextView (android:textColor or android:textSize) now
+	3. style:@style/xx just support TextView (android:textColor or android:textSize) now
 
 
