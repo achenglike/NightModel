@@ -5,10 +5,11 @@ a night model lib for easy change app's night theme.
 * [ChangeSkin 张鸿洋](https://github.com/hongyangAndroid/ChangeSkin)
 * [Blog 张鸿洋](http://blog.csdn.net/lmj623565791/article/details/51503977)
 * [Android换肤技术总结 markzhai](http://blog.zhaiyifan.cn/2015/09/10/Android%E6%8D%A2%E8%82%A4%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/)
+
 ## require
-support appcompat 23.2.0 or above
-activity extends AppCompatActivity
-follow Android official nigh model guidance
+* support appcompat 23.2.0 or above
+* activity extends AppCompatActivity
+* follow Android official nigh model guidance
 
 ## use
 1. set NightModel in Application
