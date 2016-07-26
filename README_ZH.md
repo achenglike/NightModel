@@ -7,6 +7,9 @@ a night model lib for easy change app's night theme. Based on official night mod
 * [Blog 张鸿洋](http://blog.csdn.net/lmj623565791/article/details/51503977)
 * [Android换肤技术总结 markzhai](http://blog.zhaiyifan.cn/2015/09/10/Android%E6%8D%A2%E8%82%A4%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/)
 
+## 实现思路
+[夜间模式实践](http://www.jianshu.com/p/c85c25357559)
+
 ## 使用要求
 * 官方包support appcompat 23.2.0 或以上版本
 * activity 需要继承自 AppCompatActivity
