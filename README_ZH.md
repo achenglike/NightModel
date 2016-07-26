@@ -15,7 +15,7 @@ a night model lib for easy change app's night theme. Based on official night mod
 * activity 需要继承自 AppCompatActivity
 * 应用按照官方的夜间模式实现
 
-## use
+## 使用
 1. 在appication中初始化
 	```
 	public class AppApplication extends Application {
@@ -61,7 +61,7 @@ a night model lib for easy change app's night theme. Based on official night mod
 	```
 	
 	
-## warn
+## 注意
 1. 这个库是用来解决官方夜间模式中，已打开的activity需要调用restart方法来刷新界面的问题的。所以不要在不需要刷新界面的activity中调用attach、detach方法。此库是对官方夜间模式的补充。
 
 2. 如果想在需要动态刷新的activity中用代码实例化view控件需要按照下面的方式进行:
