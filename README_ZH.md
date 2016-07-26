@@ -1,5 +1,4 @@
 # NightModel
-a night model lib for easy change app's night theme. Based on official night model and need't restart Activity.
 这是个方便切换夜间模式的库，利用官方夜间模式，同时不用重启Activity
 
 ##  致谢!
