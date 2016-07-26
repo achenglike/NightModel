@@ -1,5 +1,5 @@
 # NightModel
-a night model lib for easy change app's night theme.
+a night model lib for easy change app's night theme. Based on official night model and need't restart Activity.
 
 ##  Thanks!
 * [ChangeSkin 张鸿洋](https://github.com/hongyangAndroid/ChangeSkin)
@@ -60,7 +60,7 @@ a night model lib for easy change app's night theme.
 ## warn
 1. this lib used for resolving the problem that official night model can not refresh started Activities. So, only attach and detach in Activities that need refresh. It's a supplementary lib for official night model.
 
-2. When create View dynamically int attached Activity with code, you should write like this:
+2. When create View dynamically in attached Activity with code, you should write like this:
 	```
 	View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_layout, parentView, false);
 	```
