@@ -1,6 +1,8 @@
 # NightModel
 a night model lib for easy change app's night theme. Based on official night model and need't restart Activity.
 
+[中文README](https://github.com/achenglike/NightModel/blob/master/README_ZH.md)
+
 ##  Thanks!
 * [ChangeSkin 张鸿洋](https://github.com/hongyangAndroid/ChangeSkin)
 * [Blog 张鸿洋](http://blog.csdn.net/lmj623565791/article/details/51503977)
