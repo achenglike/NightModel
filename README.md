@@ -70,3 +70,6 @@ a night model lib for easy change app's night theme. Based on official night mod
 3. style:@style/xx just support TextView (android:textColor or android:textSize) now
 
 
+## problem
+
+srcCompat for Vector ImageView
