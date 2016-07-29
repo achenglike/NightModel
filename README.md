@@ -69,7 +69,3 @@ a night model lib for easy change app's night theme. Based on official night mod
 	because the lib need cache this View, use LayoutInflater.from(MainActivity.this) will use the proxy LayoutInflaterFactory create this View and cache it
 3. style:@style/xx just support TextView (android:textColor or android:textSize) now
 
-
-## problem
-
-srcCompat for Vector ImageView
