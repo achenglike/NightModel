@@ -12,8 +12,14 @@
     tools:context="cn.like.sample.MainActivity"
     android:background="@color/colorAccent"
     tools:showIn="@layout/activity_main">
+    <ImageView
+        android:id="@+id/vector"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/ic_arrow"/>
     <LinearLayout
         android:id="@+id/linear_layout"
+        android:layout_below="@id/vector"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal">

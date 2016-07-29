@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
+import android.support.graphics.drawable.VectorDrawableCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -82,6 +85,27 @@ public enum  AttrType {
         public void apply(View view, String resName) {
             if (view instanceof ImageView) {
                 Drawable drawable = getDrawable(view.getContext(), resName);
+                if (drawable == null) return;
+                ((ImageView) view).setImageDrawable(drawable);
+            }
+        }
+
+        @Override
+        public String getResourceName(String attrValue, Resources resources) {
+            return getIntResourceName(attrValue, resources);
+        }
+    },
+    SRCCOMPAT("srcCompat") {
+        @Override
+        public void apply(View view, String resName) {
+            if (view instanceof ImageView) {
+                Drawable drawable;
+                if (((ImageView) view).getDrawable().getClass().getName().toLowerCase().contains("vector")) {
+                    int resId = view.getResources().getIdentifier(resName, DEFTYPE_DRAWABLE, view.getContext().getPackageName());
+                    drawable = VectorDrawableCompat.create(view.getResources(), resId, view.getContext().getTheme());
+                } else {
+                    drawable = getDrawable(view.getContext(), resName);
+                }
                 if (drawable == null) return;
                 ((ImageView) view).setImageDrawable(drawable);
             }

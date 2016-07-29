@@ -11,8 +11,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="cn.like.sample.Main2Activity"
     tools:showIn="@layout/activity_main2">
+    <ImageView
+        android:id="@+id/vector"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/ic_arrow"/>
     <TextView
         style="@style/TextStyle"
+        android:layout_below="@id/vector"
         android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
