@@ -79,5 +79,5 @@ a night model lib for easy change app's night theme. Based on official night mod
     </activity>
     ```
 
-5. in support 24.x.x, ListView change night model not work, I will deal with this matter when idle.
+5. in support 24.x.x, if we set a selector as background for View, night mode not work, I will deal with this matter when idle.
 

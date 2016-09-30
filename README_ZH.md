@@ -82,5 +82,5 @@
     </activity>
     ```
 
-5. 这个库在support 24.x.x 版本中ListView的夜间模式有些失灵,我有时间的话就会处理它。
+5. 这个库在support 24.x.x 版本中如果你为布局设置的background是selector的话夜间模式会失灵,我有时间的话就会处理它。
 
