@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,6 +19,7 @@ public enum  AttrType {
     BACKGROUND("background") {
         @Override
         public void apply(View view, String resName) {
+            if (TextUtils.isEmpty(resName)) return;
             Drawable drawable = getDrawable(view.getContext(), resName);
             if (drawable == null) return;
             view.setBackgroundDrawable(drawable);
@@ -31,6 +33,7 @@ public enum  AttrType {
     COLOR("textColor") {
         @Override
         public void apply(View view, String resName) {
+            if (TextUtils.isEmpty(resName)) return;
             Resources mResources = view.getResources();
             int resId = mResources.getIdentifier(resName, DEFTYPE_COLOR, view.getContext().getPackageName());
             if (0 != resId) {
@@ -49,6 +52,7 @@ public enum  AttrType {
     TINT("tint") {
         @Override
         public void apply(View view, String resName) {
+            if (TextUtils.isEmpty(resName)) return;
             Resources mResources = view.getResources();
             int resId = mResources.getIdentifier(resName, DEFTYPE_COLOR, view.getContext().getPackageName());
             if (0 != resId) {
@@ -64,6 +68,7 @@ public enum  AttrType {
     SYTLE("style") {
         @Override
         public void apply(View view, String resName) {
+            if (TextUtils.isEmpty(resName)) return;
             // style的特殊性需要考虑,只能对TextView进行
             if (view instanceof TextView) {
                 int resId = view.getResources().getIdentifier(resName, DEFTYPE_STYLE, view.getContext().getPackageName());
@@ -83,6 +88,7 @@ public enum  AttrType {
     PROGRESSDRAWABLE("progressDrawable") {
         @Override
         public void apply(View view, String resName) {
+            if (TextUtils.isEmpty(resName)) return;
             Drawable drawable = getDrawable(view.getContext(), resName);
             if (drawable == null) return;
             ((ProgressBar)view).setProgressDrawable(drawable);
@@ -96,6 +102,7 @@ public enum  AttrType {
     SRC("src") {
         @Override
         public void apply(View view, String resName) {
+            if (TextUtils.isEmpty(resName)) return;
             if (view instanceof ImageView) {
                 Drawable drawable = getDrawable(view.getContext(), resName);
                 if (drawable == null) return;
@@ -113,7 +120,8 @@ public enum  AttrType {
         public void apply(View view, String resName) {
             if (view instanceof ImageView) {
                 Drawable drawable;
-                if (((ImageView) view).getDrawable().getClass().getName().toLowerCase().contains("vector")) {
+                if (((ImageView) view).getDrawable() != null
+                        && ((ImageView) view).getDrawable().getClass().getName().toLowerCase().contains("vector")) {
                     int resId = view.getResources().getIdentifier(resName, DEFTYPE_DRAWABLE, view.getContext().getPackageName());
                     drawable = VectorDrawableCompat.create(view.getResources(), resId, view.getContext().getTheme());
                 } else {
@@ -151,6 +159,7 @@ public enum  AttrType {
 
     String getIntResourceName(String attrValue, Resources resources) {
         int id = Integer.parseInt(attrValue.substring(1));
+        if (id==0) return null;
         return resources.getResourceEntryName(id);
     }
 

@@ -72,4 +72,15 @@
 3. style:@style/xx 这这在XML中定义样式的方法，目前只支持 TextView (android:textColor or  android:textSize) 进行样式切换，所以其他view不能使用style:@style/xx这种方式，不然控件没有夜间模式切换效果
 
 
+4. 因为24.x.x修改了夜间模式的一些方法,我还没有时间处理,所以这个库在support包23.2.1上的表现比24.x.x上要好。在support 24.x.x中 AppCompatDelegateImplV14#applyDayNight()这个方法会立即重启activity。不过你可以通过配置AndroidManifest.xml中的声明uiMode来阻止重启。
+    ```
+    <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="uiMode"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    ```
+
+5. 这个库在support 24.x.x 版本中ListView的夜间模式有些失灵,我有时间的话就会处理它。
 

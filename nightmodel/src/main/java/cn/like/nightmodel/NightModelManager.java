@@ -148,7 +148,12 @@ public class NightModelManager {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Object result = method.invoke(inflaterFactory, args);
+            Object result = null;
+            try {
+                result = method.invoke(inflaterFactory, args);
+            } catch (Exception e) {
+            }
+
             List<Attr> attrs = AttrUtils.getNightModelAttr(args, activity.getResources());
             if (attrs.isEmpty())
                 return result;
