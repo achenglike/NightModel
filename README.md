@@ -1,4 +1,5 @@
-# NightModel
+# NightModel [![](https://jitpack.io/v/achenglike/NightModel.svg)](https://jitpack.io/#achenglike/NightModel)
+
 a night model lib for easy change app's night theme. Based on official night model and need't restart Activity.
 
 [中文README](https://github.com/achenglike/NightModel/blob/master/README_ZH.md)
@@ -12,6 +13,25 @@ a night model lib for easy change app's night theme. Based on official night mod
 * support appcompat 23.2.0 or above
 * activity extends AppCompatActivity
 * follow Android official nigh model guidance
+
+## import
+1. Add it in your root build.gradle at the end of repositories:
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+2.  Add the dependency
+```
+	dependencies {
+	        compile 'com.github.achenglike:NightModel:x.x'
+	}
+
+```
 
 ## use
 1. set NightModel in Application
