@@ -5,7 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -118,12 +118,13 @@ public enum  AttrType {
     SRCCOMPAT("srcCompat") {
         @Override
         public void apply(View view, String resName) {
+            if (TextUtils.isEmpty(resName)) return;
             if (view instanceof ImageView) {
                 Drawable drawable;
                 if (((ImageView) view).getDrawable() != null
                         && ((ImageView) view).getDrawable().getClass().getName().toLowerCase().contains("vector")) {
                     int resId = view.getResources().getIdentifier(resName, DEFTYPE_DRAWABLE, view.getContext().getPackageName());
-                    drawable = VectorDrawableCompat.create(view.getResources(), resId, view.getContext().getTheme());
+                    drawable = AppCompatResources.getDrawable(view.getContext(), resId);
                 } else {
                     drawable = getDrawable(view.getContext(), resName);
                 }
