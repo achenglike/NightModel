@@ -1,4 +1,5 @@
-# NightModel
+# NightModel [![](https://jitpack.io/v/achenglike/NightModel.svg)](https://jitpack.io/#achenglike/NightModel)
+
 这是个方便切换夜间模式的库，利用官方夜间模式，同时不用重启Activity
 
 ##  致谢!
@@ -13,6 +14,25 @@
 * 官方包support appcompat 23.2.0 或以上版本
 * activity 需要继承自 AppCompatActivity
 * 应用按照官方的夜间模式实现
+
+## 配置引用
+1. 在root工程的build.gradle中添加maven仓库:
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+2.  在需要的module build.gradle中添加依赖
+```
+	dependencies {
+	        compile 'com.github.achenglike:NightModel:x.x'
+	}
+
+```
 
 ## 使用
 1. 在appication中初始化
