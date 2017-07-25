@@ -1,151 +1,20 @@
 package cn.like.nightmodel.attr;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.v7.content.res.AppCompatResources;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 /**
  * Created by like on 16/7/20.
  */
-public enum  AttrType {
-    BACKGROUND("background") {
-        @Override
-        public void apply(View view, String resName) {
-            if (TextUtils.isEmpty(resName)) return;
-            Drawable drawable = getDrawable(view.getContext(), resName);
-            if (drawable == null) return;
-            view.setBackgroundDrawable(drawable);
-        }
-
-        @Override
-        public String getResourceName(String attrValue, Resources resources) {
-            return getIntResourceName(attrValue, resources);
-        }
-    },
-    COLOR("textColor") {
-        @Override
-        public void apply(View view, String resName) {
-            if (TextUtils.isEmpty(resName)) return;
-            Resources mResources = view.getResources();
-            int resId = mResources.getIdentifier(resName, DEFTYPE_COLOR, view.getContext().getPackageName());
-            if (0 != resId) {
-                ColorStateList colorList = mResources.getColorStateList(resId);
-                if (colorList == null) return;
-
-                ((TextView) view).setTextColor(colorList);
-            }
-        }
-
-        @Override
-        public String getResourceName(String attrValue, Resources resources) {
-            return getIntResourceName(attrValue, resources);
-        }
-    },
-    TINT("tint") {
-        @Override
-        public void apply(View view, String resName) {
-            if (TextUtils.isEmpty(resName)) return;
-            Resources mResources = view.getResources();
-            int resId = mResources.getIdentifier(resName, DEFTYPE_COLOR, view.getContext().getPackageName());
-            if (0 != resId) {
-                ((ImageView) view).setColorFilter(mResources.getColor(resId));
-            }
-        }
-
-        @Override
-        public String getResourceName(String attrValue, Resources resources) {
-            return getIntResourceName(attrValue, resources);
-        }
-    },
-    SYTLE("style") {
-        @Override
-        public void apply(View view, String resName) {
-            if (TextUtils.isEmpty(resName)) return;
-            // style的特殊性需要考虑,只能对TextView进行
-            if (view instanceof TextView) {
-                int resId = view.getResources().getIdentifier(resName, DEFTYPE_STYLE, view.getContext().getPackageName());
-                if (Build.VERSION.SDK_INT < 23) {
-                    ((TextView) view).setTextAppearance(view.getContext(), resId);
-                } else {
-                    ((TextView) view).setTextAppearance(resId);
-                }
-            }
-        }
-
-        @Override
-        public String getResourceName(String attrValue, Resources resources) {
-            return attrValue.substring(1);
-        }
-    },
-    PROGRESSDRAWABLE("progressDrawable") {
-        @Override
-        public void apply(View view, String resName) {
-            if (TextUtils.isEmpty(resName)) return;
-            Drawable drawable = getDrawable(view.getContext(), resName);
-            if (drawable == null) return;
-            ((ProgressBar)view).setProgressDrawable(drawable);
-        }
-
-        @Override
-        public String getResourceName(String attrValue, Resources resources) {
-            return getIntResourceName(attrValue, resources);
-        }
-    },
-    SRC("src") {
-        @Override
-        public void apply(View view, String resName) {
-            if (TextUtils.isEmpty(resName)) return;
-            if (view instanceof ImageView) {
-                Drawable drawable = getDrawable(view.getContext(), resName);
-                if (drawable == null) return;
-                ((ImageView) view).setImageDrawable(drawable);
-            }
-        }
-
-        @Override
-        public String getResourceName(String attrValue, Resources resources) {
-            return getIntResourceName(attrValue, resources);
-        }
-    },
-    SRCCOMPAT("srcCompat") {
-        @Override
-        public void apply(View view, String resName) {
-            if (TextUtils.isEmpty(resName)) return;
-            if (view instanceof ImageView) {
-                Drawable drawable;
-                if (((ImageView) view).getDrawable() != null
-                        && ((ImageView) view).getDrawable().getClass().getName().toLowerCase().contains("vector")) {
-                    int resId = view.getResources().getIdentifier(resName, DEFTYPE_DRAWABLE, view.getContext().getPackageName());
-                    drawable = AppCompatResources.getDrawable(view.getContext(), resId);
-                } else {
-                    drawable = getDrawable(view.getContext(), resName);
-                }
-                if (drawable == null) return;
-                ((ImageView) view).setImageDrawable(drawable);
-            }
-        }
-
-        @Override
-        public String getResourceName(String attrValue, Resources resources) {
-            return getIntResourceName(attrValue, resources);
-        }
-    };
-
-
-    private static final String DEFTYPE_DRAWABLE = "drawable";
-    private static final String DEFTYPE_COLOR = "color";
-    private static final String DEFTYPE_STYLE = "style";
+public abstract class AttrType {
+    protected static final String DEFTYPE_DRAWABLE = "drawable";
+    protected static final String DEFTYPE_COLOR = "color";
+    protected static final String DEFTYPE_STYLE = "style";
 
     String attrType;
-    AttrType(String attrType) {
+    public AttrType(String attrType) {
         this.attrType = attrType;
     }
 
@@ -154,17 +23,17 @@ public enum  AttrType {
         return attrType;
     }
 
-    public abstract void apply(View view, String resName);
+    public abstract  void apply(View view, String resName);
 
     public abstract String getResourceName(String attrValue, Resources resources);
 
-    String getIntResourceName(String attrValue, Resources resources) {
+    protected String getIntResourceName(String attrValue, Resources resources) {
         int id = Integer.parseInt(attrValue.substring(1));
         if (id==0) return null;
         return resources.getResourceEntryName(id);
     }
 
-    Drawable getDrawable(Context context, String resName) {
+    protected Drawable getDrawable(Context context, String resName) {
         Drawable drawable = null;
         Resources resources = context.getResources();
         try {

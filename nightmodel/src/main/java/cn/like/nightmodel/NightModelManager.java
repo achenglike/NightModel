@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.like.nightmodel.attr.Attr;
+import cn.like.nightmodel.attr.AttrType;
 import cn.like.nightmodel.attr.AttrView;
 import cn.like.nightmodel.utils.AttrUtils;
 import cn.like.nightmodel.utils.PersistenceUtils;
@@ -98,6 +99,10 @@ public class NightModelManager {
         activity.getDelegate().applyDayNight();
         applyNewModel();
         PersistenceUtils.setNightModel(activity.getApplicationContext(), false);
+    }
+
+    public void addExpandAttrType(AttrType... attrTypes) {
+        AttrUtils.addExpandAttrType(attrTypes);
     }
 
     /**
