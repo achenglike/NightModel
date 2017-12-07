@@ -17,10 +17,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.like.nightmodel.ModelChangeListener;
 import cn.like.nightmodel.NightModelManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(new SimpleAdapter());
+
+        NightModelManager.getInstance().addModelChangeListener(new ModelChangeListener() {
+            @Override
+            public void onChanged(boolean isNight) {
+                Toast.makeText(getApplicationContext(), isNight?"night":"day", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void changeNightModel() {

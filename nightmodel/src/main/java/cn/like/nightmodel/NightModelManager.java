@@ -91,6 +91,7 @@ public class NightModelManager {
         activity.getDelegate().applyDayNight();
         applyNewModel();
         PersistenceUtils.setNightModel(activity.getApplicationContext(), true);
+        ModelChangeManager.getInstance().notifyChange(true);
     }
 
     public void applyDayModel(AppCompatActivity activity) {
@@ -99,6 +100,7 @@ public class NightModelManager {
         activity.getDelegate().applyDayNight();
         applyNewModel();
         PersistenceUtils.setNightModel(activity.getApplicationContext(), false);
+        ModelChangeManager.getInstance().notifyChange(false);
     }
 
     public void addExpandAttrType(AttrType... attrTypes) {
@@ -235,5 +237,21 @@ public class NightModelManager {
                 return null;
             }
         }
+    }
+
+    /**
+     * 添加夜间模式切换监听
+     * @param listener
+     */
+    public void addModelChangeListener(ModelChangeListener listener) {
+        ModelChangeManager.getInstance().addListener(listener);
+    }
+
+    /**
+     * 移除夜间模式切换监听
+     * @param listener
+     */
+    public void removeModelChangeListener(ModelChangeListener listener) {
+        ModelChangeManager.getInstance().removeListener(listener);
     }
 }
