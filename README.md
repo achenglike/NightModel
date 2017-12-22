@@ -66,6 +66,17 @@ a night model lib for easy change app's night theme. Based on official night mod
     }
 	}
 	```
+
+3. for stop Activity restart, we need config configChanges="uiMode" in Androidmanifest.xml
+    ```
+    <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="uiMode"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    ```
+
 3. call night/day method
 
 	```
@@ -89,15 +100,9 @@ a night model lib for easy change app's night theme. Based on official night mod
 	because the lib need cache this View, use LayoutInflater.from(MainActivity.this) will use the proxy LayoutInflaterFactory create this View and cache it
 3. style:@style/xx just support TextView (android:textColor or android:textSize) now
 
-4. this lib with support lib 23.2.1 performance is better than 24.x.x, as 24.x.x changed some night model method that I have not had time to deal with. In support lib 24.x.x, AppCompatDelegateImplV14#applyDayNight(), it will restart the activity. But you can set configChanges to stop it like this:
-    ```
-    <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name"
-        android:configChanges="uiMode"
-        android:theme="@style/AppTheme.NoActionBar">
-    </activity>
-    ```
+4. this lib version 2.1 and before support version 26 and below 26.
 
-5. in support 24.x.x, if we set a selector as background for View, night mode not work, I will deal with this matter when idle.
+5. this lib version 2.2 and later only support android support lib version 26 and later.
+
+6. if we set a selector as background for View, night mode not work.
 
