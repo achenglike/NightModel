@@ -67,7 +67,18 @@
     }
 	}
 	```
-3. 切换时调用appleyDayModel\appleyNightModel进行夜间模式切换
+
+3. 为了防止Activity重启，需要在Androidmanifest.xml中进行configChanges = "uiMode"配置
+    ```
+    <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="uiMode"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    ```
+
+4. 切换时调用appleyDayModel\appleyNightModel进行夜间模式切换
 
 	```
 	private void changeNightModel() {
@@ -91,16 +102,9 @@
 
 3. style:@style/xx 这这在XML中定义样式的方法，目前只支持 TextView (android:textColor or  android:textSize) 进行样式切换，所以其他view不能使用style:@style/xx这种方式，不然控件没有夜间模式切换效果
 
+4. 这个库发布的版本2.1及以前支持support 26版本(不包括26)以下版本。
 
-4. 因为24.x.x修改了夜间模式的一些方法,我还没有时间处理,所以这个库在support包23.2.1上的表现比24.x.x上要好。在support 24.x.x中 AppCompatDelegateImplV14#applyDayNight()这个方法会立即重启activity。不过你可以通过配置AndroidManifest.xml中的声明uiMode来阻止重启。
-    ```
-    <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name"
-        android:configChanges="uiMode"
-        android:theme="@style/AppTheme.NoActionBar">
-    </activity>
-    ```
+5. 这个库发布的版本2.2及以后版本只会支持support 26版本(包括26)以上版本。
 
-5. 这个库在support 24.x.x 版本中如果你为布局设置的background是selector的话夜间模式会失灵,我有时间的话就会处理它。
+6. 如果你为布局设置的background是selector的话夜间模式会失灵。
 

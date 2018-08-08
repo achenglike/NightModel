@@ -12,6 +12,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import java.lang.ref.SoftReference;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -34,7 +35,7 @@ public class NightModelManager {
 
     private boolean modelChanged = false;
 
-    private SparseArrayCompat<List<AttrView>> attrViewMaps = new SparseArrayCompat<>();
+    private SparseArrayCompat<List<SoftReference<AttrView>>> attrViewMaps = new SparseArrayCompat<>();
 
     private static final Map<String, Constructor<? extends View>> sConstructorMap
             = new ArrayMap<>();
@@ -66,10 +67,19 @@ public class NightModelManager {
             LayoutInflaterFactory proxyInflaterFactory = (LayoutInflaterFactory) Proxy.newProxyInstance(
                     originInflaterFactory.getClass().getClassLoader(),
                     new Class[]{LayoutInflaterFactory.class},
-                    new InflaterHandler(originInflaterFactory, activity));
+                    new InflateFacotryHandler<>(originInflaterFactory, activity));
 
             LayoutInflater layoutInflater = LayoutInflater.from(activity);
             LayoutInflaterCompat.setFactory(layoutInflater, proxyInflaterFactory);
+        } else if (activity.getDelegate() instanceof LayoutInflater.Factory2) {
+            LayoutInflater.Factory2 originInflaterFactory = (LayoutInflater.Factory2) activity.getDelegate();
+            LayoutInflater.Factory2 proxyInflaterFactory = (LayoutInflater.Factory2) Proxy.newProxyInstance(
+                    originInflaterFactory.getClass().getClassLoader(),
+                    new Class[]{LayoutInflater.Factory2.class},
+                    new InflateFacotryHandler<>(originInflaterFactory, activity));
+
+            LayoutInflater layoutInflater = LayoutInflater.from(activity);
+            LayoutInflaterCompat.setFactory2(layoutInflater, proxyInflaterFactory);
         }
     }
 
@@ -129,9 +139,11 @@ public class NightModelManager {
         modelChanged = true;
         int count = attrViewMaps.size();
         for (int i=0; i<count; i++) {
-            List<AttrView> attrViews = attrViewMaps.valueAt(i);
-            for (AttrView attrView : attrViews) {
-                attrView.apply();
+            List<SoftReference<AttrView>> attrViews = attrViewMaps.valueAt(i);
+            for (SoftReference<AttrView> attrView : attrViews) {
+                if (attrView.get() != null) {
+                    attrView.get().apply();
+                }
             }
         }
     }
@@ -144,11 +156,11 @@ public class NightModelManager {
         return NightModelManagerHolder.instance;
     }
 
-    private class InflaterHandler implements InvocationHandler {
-        private LayoutInflaterFactory inflaterFactory;
+    private class InflateFacotryHandler<T> implements InvocationHandler {
+        private T inflaterFactory;
         private AppCompatActivity activity;
 
-        public InflaterHandler(LayoutInflaterFactory inflaterFactory, AppCompatActivity activity) {
+        public InflateFacotryHandler(T inflaterFactory, AppCompatActivity activity) {
             this.inflaterFactory = inflaterFactory;
             this.activity = activity;
         }
@@ -183,13 +195,13 @@ public class NightModelManager {
         }
 
         private void putAttrView(AttrView attrView, int hashCode) {
-            List<AttrView> attrViews;
+            List<SoftReference<AttrView>> attrViews;
             if (attrViewMaps.indexOfKey(hashCode) > -1) {
                 attrViews = attrViewMaps.get(hashCode);
             } else {
                 attrViews = new ArrayList<>();
             }
-            attrViews.add(attrView);
+            attrViews.add(new SoftReference<>(attrView));
             attrViewMaps.put(hashCode, attrViews);
         }
 
@@ -238,6 +250,7 @@ public class NightModelManager {
             }
         }
     }
+
 
     /**
      * 添加夜间模式切换监听

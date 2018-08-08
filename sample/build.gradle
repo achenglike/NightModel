@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.imooc.nigthmodel"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
 
     aaptOptions {
@@ -35,7 +36,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     compile project(':nightmodel')
 }
