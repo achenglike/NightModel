@@ -35,7 +35,7 @@ public class NightModelManager {
 
     private boolean modelChanged = false;
 
-    private SparseArrayCompat<List<SoftReference<AttrView>>> attrViewMaps = new SparseArrayCompat<>();
+    private SparseArrayCompat<List<AttrView>> attrViewMaps = new SparseArrayCompat<>();
 
     private static final Map<String, Constructor<? extends View>> sConstructorMap
             = new ArrayMap<>();
@@ -139,11 +139,9 @@ public class NightModelManager {
         modelChanged = true;
         int count = attrViewMaps.size();
         for (int i=0; i<count; i++) {
-            List<SoftReference<AttrView>> attrViews = attrViewMaps.valueAt(i);
-            for (SoftReference<AttrView> attrView : attrViews) {
-                if (attrView.get() != null) {
-                    attrView.get().apply();
-                }
+            List<AttrView> attrViews = attrViewMaps.valueAt(i);
+            for (AttrView attrView : attrViews) {
+                attrView.apply();
             }
         }
     }
@@ -195,13 +193,13 @@ public class NightModelManager {
         }
 
         private void putAttrView(AttrView attrView, int hashCode) {
-            List<SoftReference<AttrView>> attrViews;
+            List<AttrView> attrViews;
             if (attrViewMaps.indexOfKey(hashCode) > -1) {
                 attrViews = attrViewMaps.get(hashCode);
             } else {
                 attrViews = new ArrayList<>();
             }
-            attrViews.add(new SoftReference<>(attrView));
+            attrViews.add(attrView);
             attrViewMaps.put(hashCode, attrViews);
         }
 
